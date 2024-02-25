@@ -18,6 +18,7 @@ services:
     command: python /opt/voicechatapp/manage.py runserver 0.0.0.0:8000
     volumes:
       - ./voicechatapp/:/opt/voicechatapp/
+      - ./voicechatapp/chat:/opt/voicechatapp/chat
     ports:
       - "8000:8000"
     depends_on:
