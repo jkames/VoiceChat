@@ -75,11 +75,14 @@ WSGI_APPLICATION = 'voicechatapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'chat_db',
+        'USER': 'chat_user',
+        'PASSWORD': 'local',
+        'HOST': 'db',  # This should match the service name for MySQL in your docker-compose.yml file
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
