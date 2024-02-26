@@ -38,7 +38,7 @@ services:
       - db
 
   redis:
-    image: "redis:alpine"
+    image: redis:7.2.4-bookworm
     ports:
       - "6379:6379"
 

@@ -41,15 +41,15 @@ INSTALLED_APPS = [
     'chat',
     'channels',
 ]
+ASGI_APPLICATION = 'voicechatapp.asgi.application'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('voicechat-redis-1', 6379)],
         },
     },
 }
-ASGI_APPLICATION = 'voicechatapp.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
