@@ -3,12 +3,10 @@ version: '3.8'
 services:
   nginx:
     image: nginx:latest
-    build:
-        context: .
-        dockerfile: Dockerfile.nginx
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d/
       -  static_volume:/opt/voicechatapp/static
+      -  ./host/log/nginx:/var/log/nginx
     ports:
         - "80:80"
     depends_on:
@@ -28,7 +26,7 @@ services:
   web:
     build: .
     command: >
-      bash -c "python manage.py collectstatic --no-input && 
+      bash -c "python manage.py collectstatic --no-input --clear && 
       daphne -b 0.0.0.0 -p 8000 voicechatapp.asgi:application"
     volumes:
       - ./voicechatapp/:/opt/voicechatapp/

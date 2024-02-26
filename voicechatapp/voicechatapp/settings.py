@@ -24,9 +24,9 @@ print(BASE_DIR)
 SECRET_KEY = 'django-insecure-j1tlou*w&m^n4+%+f@0i#!fb6f1v5d$@ykhdoxw-s2^bc0_&)('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -45,11 +45,11 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
-            "hosts": [('redis', 6379)],
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
-ASGI_APPLICATION = 'voicechatapp.routing.application'
+ASGI_APPLICATION = 'voicechatapp.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
