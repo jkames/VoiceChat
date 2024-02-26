@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  nginx:
+    image: nginx:latest
+    build:
+        context: .
+        dockerfile: Dockerfile.nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      -  static_volume:/opt/voicechatapp/static
+    ports:
+        - "80:80"
+    depends_on:
+        - web
   db:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
@@ -15,10 +27,13 @@ services:
 
   web:
     build: .
-    command: python /opt/voicechatapp/manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "python manage.py collectstatic --no-input && 
+      daphne -b 0.0.0.0 -p 8000 voicechatapp.asgi:application"
     volumes:
       - ./voicechatapp/:/opt/voicechatapp/
       - ./voicechatapp/chat:/opt/voicechatapp/chat
+      - static_volume:/opt/voicechatapp/static
     ports:
       - "8000:8000"
     depends_on:
@@ -31,3 +46,4 @@ services:
 
 volumes:
   db_data:
+  static_volume:
